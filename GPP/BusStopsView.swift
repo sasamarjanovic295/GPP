@@ -44,37 +44,40 @@ struct BusStopsView: View {
     
     var body: some View {
         
-        VStack{
-            
+        NavigationView{
+        
             VStack{
-                Text("Stanice")
-                    .font(.title2)
+                
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
                         .font(.title2)
                     TextField("Potrazi stanicu", text: $query)
                         .textFieldStyle(.roundedBorder)
+                }.padding(EdgeInsets(top: 18, leading: 18, bottom: 5, trailing: 18))
+
+                if query != "" {
+                    List(foundStops) { busStop in
+                        NavigationLink(destination: BusStopDetailView(busStop: busStop)){
+                            BusStopView(busStop: busStop)
+                        }
+                    }
+                    .listStyle(.plain)
+                    .frame(alignment: .leading)
                 }
-            }
-            .padding(EdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16))
-            
-            if query != "" {
-                List(foundStops) { busStop in
-                    BusStopView(busStop: busStop)
+                else {
+                    List(busStops) { busStop in
+                        NavigationLink(destination: BusStopDetailView(busStop: busStop)){
+                            BusStopView(busStop: busStop)
+                        }
+                    }
+                    .listStyle(.plain)
+                    .frame(alignment: .leading)
                 }
-                .listStyle(.plain)
-                .frame(alignment: .leading)
+                
+                Spacer()
             }
-            else {
-                List(busStops) { busStop in
-                    BusStopView(busStop: busStop)
-                }
-                .listStyle(.plain)
-                .frame(alignment: .leading)
-            }
-            
-            Spacer()
+            .navigationBarTitle(Text("Stanice"),displayMode: .inline)
         }
     }
 }

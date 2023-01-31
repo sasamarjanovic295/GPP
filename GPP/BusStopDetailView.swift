@@ -34,11 +34,7 @@ struct BusStopDetailView: View {
         VStack{
         
             VStack{
-                    
-                Text(busStop.name)
-                    .font(.title2)
-                    .padding()
-            
+        
                 HStack{
                     Text("LINIJE KOJE PROLAZE")
                         .font(.subheadline)
@@ -78,7 +74,7 @@ struct BusStopDetailView: View {
                 }
                 
             }
-            .padding(.horizontal)
+            .padding(EdgeInsets(top: 18, leading: 18, bottom: 0, trailing: 18))
         
             List(routesForBusStop) { route in
                 
@@ -88,6 +84,7 @@ struct BusStopDetailView: View {
             
             Spacer()
         }
+        .navigationBarTitle(Text(busStop.name),displayMode: .inline)
     }
 }
 
