@@ -68,6 +68,6 @@ struct BusStopView: View {
 
 struct BusStopView_Previews: PreviewProvider {
     static var previews: some View {
-        BusStopView(busStop: BusStop(name: "Cesting", coordinate: CLLocationCoordinate2D(latitude: 45.53894023803806, longitude: 18.67270921720016)))
+        BusStopView(busStop: BusStop(name: "Cesting", latitude: 45.53894023803806, longitude: 18.67270921720016))
     }
 }

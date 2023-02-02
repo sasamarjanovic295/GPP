@@ -6,10 +6,18 @@
 //
 
 import Foundation
-import MapKit
+import FirebaseDatabase
 
-struct BusStop : Identifiable{
+
+struct Route: Identifiable, Codable {
     var id = UUID().uuidString
-    let name: String
-    let coordinate: CLLocationCoordinate2D
+    let number: String
+    let destination: String
+}
+
+struct BusStopSchedule: Identifiable, Codable {
+    var id = UUID().uuidString
+    let busStopId: String
+    let routeId: String
+    let time: Date
 }

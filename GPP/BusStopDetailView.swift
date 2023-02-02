@@ -8,26 +8,11 @@
 import SwiftUI
 import MapKit
 
-struct Route: Identifiable {
-    var id = UUID().uuidString
-    let number: String
-    let destination: String
-    let time: Date
-}
-
 struct BusStopDetailView: View {
     
     var busStop:BusStop
-    var routesForBusStop: [Route] = [Route(number: "1", destination: "Kampus",
-                                           time: Date(timeIntervalSinceNow: TimeInterval(3630))),
-                                     Route(number: "2", destination: "Kampus",
-                                           time: Date(timeIntervalSinceNow: TimeInterval(3630))),
-                                     Route(number: "3", destination: "Kampus",
-                                           time: Date(timeIntervalSinceNow: TimeInterval(300))),
-                                     Route(number: "4", destination: "Kampus",
-                                           time: Date(timeIntervalSinceNow: TimeInterval(3330))),
-                                     Route(number: "5", destination: "Kampus",
-                                           time: Date(timeIntervalSinceNow: TimeInterval(3230)))]
+    var routesForBusStop: [Route] = []
+    
     
     var body: some View {
         
@@ -72,14 +57,15 @@ struct BusStopDetailView: View {
                         .font(.subheadline)
                         .foregroundColor(.black.opacity(0.7))
                 }
-                
             }
             .padding(EdgeInsets(top: 18, leading: 18, bottom: 0, trailing: 18))
-        
-            List(routesForBusStop) { route in
-                
-                BusArrivalView(route: route)
-            }
+            
+//            List(routesForBusStop.sorted(by: { (route1, route2) in
+//                route1.time < route2.time })) { route in
+//                    if route.time >= Date(){
+//                        BusArrivalView(route: route)
+//                    }
+//            }
             .listStyle(.plain)
             
             Spacer()
@@ -90,7 +76,6 @@ struct BusStopDetailView: View {
 
 struct BusStopDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BusStopDetailView(busStop:BusStop(name: "Centralno groblje",
-        coordinate: CLLocationCoordinate2D(latitude: 45.53174983310974, longitude: 18.671850304788737)))
+        BusStopDetailView(busStop:BusStop(name: "Centralno groblje", latitude: 45.53174983310974, longitude: 18.671850304788737))
     }
 }

@@ -14,26 +14,15 @@ struct BusStopsView: View {
     @State var query: String = ""
     
     @State var busStops: [BusStop] = [
-        BusStop(name: "Centralno groblje",
-            coordinate: CLLocationCoordinate2D(latitude: 45.53174983310974, longitude: 18.671850304788737)),
-        BusStop(name: "Cesting",
-            coordinate: CLLocationCoordinate2D(latitude: 45.53894023803806, longitude: 18.67270921720016)),
-        BusStop(name: "Nadvoznjak",
-            coordinate: CLLocationCoordinate2D(latitude: 45.54159885719651, longitude:  18.674880320881)),
-        BusStop(name: "Mercator",
-            coordinate: CLLocationCoordinate2D(latitude: 45.54480067313245, longitude: 18.677720239942886)),
-        BusStop(name: "Mercator",
-            coordinate: CLLocationCoordinate2D(latitude: 45.54480067313245, longitude: 18.677720239942886)),
-        BusStop(name: "Mercator",
-            coordinate: CLLocationCoordinate2D(latitude: 45.54480067313245, longitude: 18.677720239942886)),
-        BusStop(name: "Mercator",
-            coordinate: CLLocationCoordinate2D(latitude: 45.54480067313245, longitude: 18.677720239942886)),
-        BusStop(name: "Mercator",
-            coordinate: CLLocationCoordinate2D(latitude: 45.54480067313245, longitude: 18.677720239942886)),
-        BusStop(name: "Mercator",
-            coordinate: CLLocationCoordinate2D(latitude: 45.54480067313245, longitude: 18.677720239942886))
-    ]
-
+        BusStop(name: "Centralno groblje",latitude: 45.53174983310974, longitude: 18.671850304788737),
+        BusStop(name: "Cesting",latitude: 45.53894023803806, longitude: 18.67270921720016),
+        BusStop(name: "Nadvoznjak",latitude: 45.54159885719651, longitude:  18.674880320881),
+        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
+        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
+        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
+        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
+        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
+        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886)]
     
     var foundStops: [BusStop]{
         return busStops.filter{ busStop in
