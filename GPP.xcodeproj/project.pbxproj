@@ -21,7 +21,6 @@
 		01C79063298AD4AF0014FD69 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 01C79062298AD4AF0014FD69 /* FirebaseDatabase */; };
 		01E17EDD29858AAF0009D773 /* BusStopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E17EDC29858AAF0009D773 /* BusStopView.swift */; };
 		01E17EDF2985B5DF0009D773 /* BusStopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E17EDE2985B5DF0009D773 /* BusStopsView.swift */; };
-		01FB41D7298AE2B2008252B2 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41D6298AE2B2008252B2 /* BusStop.swift */; };
 		01FB41DB298AF686008252B2 /* RoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41DA298AF686008252B2 /* RoutesView.swift */; };
 		01FB41DD298AF926008252B2 /* RouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41DC298AF926008252B2 /* RouteView.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +38,6 @@
 		01C30B72298AC3B000A8C1AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		01E17EDC29858AAF0009D773 /* BusStopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopView.swift; sourceTree = "<group>"; };
 		01E17EDE2985B5DF0009D773 /* BusStopsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopsView.swift; sourceTree = "<group>"; };
-		01FB41D6298AE2B2008252B2 /* BusStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
 		01FB41DA298AF686008252B2 /* RoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesView.swift; sourceTree = "<group>"; };
 		01FB41DC298AF926008252B2 /* RouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,7 +86,6 @@
 				019472982985EA2F00F92787 /* BusStopDetailView.swift */,
 				0194729A2986C0FE00F92787 /* BusArrivalView.swift */,
 				01C30B72298AC3B000A8C1AB /* GoogleService-Info.plist */,
-				01FB41D6298AE2B2008252B2 /* BusStop.swift */,
 				01FB41DA298AF686008252B2 /* RoutesView.swift */,
 				01FB41DC298AF926008252B2 /* RouteView.swift */,
 			);
@@ -191,7 +188,6 @@
 				01E17EDD29858AAF0009D773 /* BusStopView.swift in Sources */,
 				0194729B2986C0FE00F92787 /* BusArrivalView.swift in Sources */,
 				01FB41DB298AF686008252B2 /* RoutesView.swift in Sources */,
-				01FB41D7298AE2B2008252B2 /* BusStop.swift in Sources */,
 				019472992985EA2F00F92787 /* BusStopDetailView.swift in Sources */,
 				01E17EDF2985B5DF0009D773 /* BusStopsView.swift in Sources */,
 			);

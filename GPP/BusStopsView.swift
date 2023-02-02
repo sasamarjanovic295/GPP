@@ -13,22 +13,14 @@ struct BusStopsView: View {
     
     @State var query: String = ""
     
-    @State var busStops: [BusStop] = [
-        BusStop(name: "Centralno groblje",latitude: 45.53174983310974, longitude: 18.671850304788737),
-        BusStop(name: "Cesting",latitude: 45.53894023803806, longitude: 18.67270921720016),
-        BusStop(name: "Nadvoznjak",latitude: 45.54159885719651, longitude:  18.674880320881),
-        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
-        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
-        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
-        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
-        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886),
-        BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886)]
+    @EnvironmentObject var busStopData: BusStopData
     
     var foundStops: [BusStop]{
-        return busStops.filter{ busStop in
+        return busStopData.busStops.filter{ busStop in
             return busStop.name.lowercased()
                 .contains(query.lowercased())
         }
+        .sorted(by: { $0.name < $1.name})
     }
     
     var body: some View {
@@ -47,15 +39,15 @@ struct BusStopsView: View {
 
                 if query != "" {
                     List(foundStops) { busStop in
-                        NavigationLink(destination: BusStopDetailView(busStop: busStop)){
-                            BusStopView(busStop: busStop)
+                        NavigationLink(destination: BusStopDetailView(busStop: Binding.constant(busStop))){
+                            BusStopView(busStop: Binding.constant(busStop))
                         }
                     }
                     .listStyle(.plain)
                     .frame(alignment: .leading)
                 }
                 else {
-                    List(busStops) { busStop in
+                    List($busStopData.busStops) { busStop in
                         NavigationLink(destination: BusStopDetailView(busStop: busStop)){
                             BusStopView(busStop: busStop)
                         }
@@ -74,5 +66,6 @@ struct BusStopsView: View {
 struct BusStopsView_Previews: PreviewProvider {
     static var previews: some View {
         BusStopsView()
+            .environmentObject(BusStopData())
     }
 }

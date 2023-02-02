@@ -15,9 +15,36 @@ extension String: Identifiable {
 
 struct BusStopView: View {
     
-    var busStop: BusStop
-    let busStopRoutes:[String] = ["1","2", "3", "4", "5"]
-    let busStopDestinations:[String] = ["Retfala", "Donji grad", "Jug", "Tvrdja", "Kampus"]
+    @Binding var busStop: BusStop
+    
+    @EnvironmentObject var busStopData: BusStopData
+    
+    var schedules: [BusStopSchedule]{
+        return busStopData.busStopSchedules.filter{ schedule in
+            return schedule.busStopId == busStop.id
+        }
+    }
+    
+    var routes: [Route] {
+        var routes: [Route] = []
+        for schedule in self.schedules {
+            let route = busStopData.routes.filter{  route in
+                return route.id == schedule.routeId
+            }.first
+            routes.append(route!)
+        }
+        return routes.sorted(by: { $0.destination < $1.destination})
+    }
+    
+    var routeNumbers: [String]{
+        var numbers:[String] = []
+        for route in self.routes {
+            if !numbers.contains(route.number) {
+                numbers.append(route.number)
+            }
+        }
+        return numbers.sorted(by: { $0 < $1})
+    }
     
     var body: some View {
         
@@ -33,13 +60,13 @@ struct BusStopView: View {
                 Image(systemName: "bus.fill")
                     .foregroundColor(.blue)
                     .padding(EdgeInsets(top: 0,leading: 0, bottom: 1, trailing: 8))
-                ForEach(busStopRoutes) { route in
-                    if route != busStopRoutes.last {
-                        Text(route + ",")
+                ForEach(routeNumbers) { number in
+                    if number != routeNumbers.last {
+                        Text(number + ",")
                             .foregroundColor(.black.opacity(0.7))
                     }
                     else{
-                        Text(route)
+                        Text(number)
                             .foregroundColor(.black.opacity(0.7))
                     }
                 }
@@ -49,14 +76,14 @@ struct BusStopView: View {
                 Image(systemName: "arrow.right")
                     .foregroundColor(.blue)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8))
-                ForEach(busStopDestinations.prefix(4)) { destination in
-                    if destination != busStopDestinations.prefix(4).last {
-                        Text(destination + ",")
+                ForEach(routes.prefix(4)) { route in
+                    if route.id != routes.prefix(4).last?.id {
+                        Text(route.destination + ",")
                             .fixedSize()
                             .foregroundColor(.black.opacity(0.7))
                     }
                     else{
-                        Text(destination + "...")
+                        Text(route.destination + "...")
                             .foregroundColor(.black.opacity(0.7))
                     }
                 }
@@ -68,6 +95,10 @@ struct BusStopView: View {
 
 struct BusStopView_Previews: PreviewProvider {
     static var previews: some View {
-        BusStopView(busStop: BusStop(name: "Cesting", latitude: 45.53894023803806, longitude: 18.67270921720016))
+        BusStopView(busStop: Binding.constant(BusStop(
+            name: "Cesting",
+            latitude: 45.53894023803806,
+            longitude: 18.67270921720016)))
+        .environmentObject(BusStopData())
     }
 }

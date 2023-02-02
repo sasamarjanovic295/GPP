@@ -6,20 +6,11 @@
 //
 
 import SwiftUI
-import FirebaseCore
-
-class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
-}
 
 @main
 struct GPPApp: App {
     
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var busStopData: BusStopData = BusStopData()
     
     var body: some Scene {
         WindowGroup {
@@ -32,7 +23,15 @@ struct GPPApp: App {
                     .tabItem{
                         Label("Stanice", systemImage: "pin.circle")
                     }
+                RoutesView()
+                    .tabItem{
+                        Label("Linije", systemImage: "pin.circle")
+                    }
             }
+            .environmentObject(busStopData)
+            .task(busStopData.fetchBusStops)
+            .task(busStopData.fetchRoutes)
+            .task(busStopData.fetchBusStopSchedule)
         }
     }
 }

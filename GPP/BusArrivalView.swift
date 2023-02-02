@@ -11,8 +11,15 @@ import SwiftUI
 
 struct BusArrivalView: View {
     
-    var route: Route
+    @EnvironmentObject var busStopData: BusStopData
+    
     var schedule:BusStopSchedule
+    
+    var route: Route {
+        return busStopData.routes.filter{ route in
+            return route.id == schedule.routeId
+        }.first!
+    }
     
     private let formatter: DateFormatter = DateFormatter()
     
@@ -21,10 +28,8 @@ struct BusArrivalView: View {
         return formatter.string(from: schedule.time)
     }
     
-    @State private var isCommingInOneHour = true
+    @State private var isCommingInOneHour = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    
     
     
     var body: some View {
@@ -60,6 +65,9 @@ struct BusArrivalView: View {
             }
         }
         .padding(.vertical)
+        .task {
+            self.isCommingInOneHour = schedule.time.timeIntervalSince(Date()) < 3600
+        }
         .onReceive(timer){ time in
             self.isCommingInOneHour = schedule.time.timeIntervalSince(Date()) < 3600
         }
@@ -68,8 +76,8 @@ struct BusArrivalView: View {
 
 struct BusArrivalView_Previews: PreviewProvider {
     static var previews: some View {
-        BusArrivalView(route: Route(id:"3" ,number: "3", destination: "Mek"),
-                       schedule: BusStopSchedule(busStopId: "3", routeId: "3",
-                                                 time: Date(timeIntervalSinceNow: TimeInterval(3630))))
+        BusArrivalView( schedule: BusStopSchedule(busStopId: "3", routeId: "3",
+                        time: Date(timeIntervalSinceNow: TimeInterval(3630))))
+        .environmentObject(BusStopData())
     }
 }

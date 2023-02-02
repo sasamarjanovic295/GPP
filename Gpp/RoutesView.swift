@@ -11,15 +11,10 @@ struct RoutesView: View {
     
     @State var query: String = ""
     
-    @State var routes: [Route] = [Route(number: "1", destination: "Tvrdja"),
-                                  Route(number: "1", destination: "Kolodvor"),
-                                  Route(number: "2", destination: "Donjig"),
-                                  Route(number: "2", destination: "Gornjig"),
-                                  Route(number: "3", destination: "Retfala"),
-                                  Route(number: "3", destination: "Zigubigule"),]
-    
+    @EnvironmentObject var busStopData: BusStopData
+
     var groupedFoundRoutes: Array<(String, [Route])>{
-        return self.groupRoutesByNumber(routes: routes).filter{ (key, values) in
+        return self.groupRoutesByNumber(routes: busStopData.routes).filter{ (key, values) in
             return values[0].number.lowercased().contains(query.lowercased())
             || values[0].destination.lowercased().contains(query.lowercased())
             || values[1].number.lowercased().contains(query.lowercased())
@@ -86,7 +81,7 @@ struct RoutesView: View {
                     .frame(alignment: .leading)
                 }
                 else {
-                    List(groupRoutesByNumber(routes: routes),id: \.0) { (key: String, values: [Route]) in
+                    List(groupRoutesByNumber(routes: busStopData.routes),id: \.0) { (key: String, values: [Route]) in
                         HStack{
                             Text(key)
                                 .font(.title2)
@@ -116,5 +111,6 @@ struct RoutesView: View {
 struct RoutesView_Previews: PreviewProvider {
     static var previews: some View {
         RoutesView()
+            .environmentObject(BusStopData())
     }
 }
