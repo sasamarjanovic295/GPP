@@ -29,4 +29,10 @@ class DateUtility: ObservableObject{
         let newDate = Calendar.current.date(from: newDateComponents)!
         return newDate
     }
+    
+    func getNewDateWithTimeFromToday(_ date: Date) -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: date)
+        return calendar.date(bySettingHour: dateComponents.hour!, minute: dateComponents.minute!, second: dateComponents.second!, of: Date())!
+    }
 }

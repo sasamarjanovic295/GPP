@@ -15,6 +15,8 @@ struct RouteArrivalView: View {
     
     @State private var isCommingInOneHour = false
     
+    @State private var isArrived = false
+    
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
     @EnvironmentObject var busStopData: BusStopData
@@ -26,10 +28,14 @@ struct RouteArrivalView: View {
         }.first!
     }
     
+    private var todaySchedule: Date {
+        return dateUtility.getNewDateWithTimeFromToday(schedule.time)
+    }
+    
     
     var body: some View {
         HStack{
-            if schedule.time < dateUtility.dateForComparing(existingDate: schedule.time){
+            if isArrived{
                 Image(systemName: "circle.fill")
                     .font(.title2)
                     .foregroundColor(.blue)
@@ -46,33 +52,31 @@ struct RouteArrivalView: View {
                 .font(.title2)
             Spacer()
             
-            if isCommingInOneHour {
-                
-                if schedule.time <= dateUtility.dateForComparing(existingDate: schedule.time)
-                {
-                    Text("Stigao")
-                        .font(.title2)
-                        .foregroundColor(.blue)
-                }
-                else{
-                    Text(schedule.time, style: .relative)
-                        .font(.title2)
-                        .foregroundColor(.blue)
-                }
-                
+            if isArrived
+            {
+                Text("Stigao")
+                    .font(.title2)
+                    .foregroundColor(.blue)
+            }
+            else if isCommingInOneHour{
+                Text(todaySchedule, style: .relative)
+                    .font(.title2)
+                    .foregroundColor(.blue)
             }
             else{
-                Text(dateUtility.display24HoursTime(date: schedule.time))
+                Text(dateUtility.display24HoursTime(date: todaySchedule))
                     .font(.title2)
                     .foregroundColor(.blue)
             }
         }
         .padding(.vertical)
         .task {
-            self.isCommingInOneHour = schedule.time.timeIntervalSince(dateUtility.dateForComparing(existingDate: schedule.time)) < 3600
+            self.isCommingInOneHour = todaySchedule.timeIntervalSince(Date()) < 3600
+            self.isArrived = todaySchedule <= Date()
         }
         .onReceive(timer){ time in
-            self.isCommingInOneHour = schedule.time.timeIntervalSince(dateUtility.dateForComparing(existingDate: schedule.time)) < 3600
+            self.isCommingInOneHour = todaySchedule.timeIntervalSince(Date()) < 3600
+            self.isArrived = todaySchedule <= Date()
         }
     }
 }

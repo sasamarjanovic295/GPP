@@ -10,6 +10,8 @@ import MapKit
 
 struct BusStopDetailView: View {
     
+    @State var busStopName: String?
+    
     @Binding var busStop:BusStop
     
     @EnvironmentObject var dateUtility: DateUtility
@@ -35,8 +37,14 @@ struct BusStopDetailView: View {
     var body: some View {
         
         VStack{
-        
+            
             VStack{
+                
+                if busStopName != nil{
+                    Text(busStopName!)
+                        .font(.title)
+                        .padding(EdgeInsets(top: 0,leading: 0, bottom: 10, trailing: 8))
+                }
         
                 HStack{
                     Text("LINIJE KOJE PROLAZE")
