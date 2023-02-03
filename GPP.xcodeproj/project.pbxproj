@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		012031DA297709F500CE8326 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012031D9297709F500CE8326 /* MapView.swift */; };
 		012031DC29778E7A00CE8326 /* BusStopData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012031DB29778E7A00CE8326 /* BusStopData.swift */; };
 		0169A1332976A0C0006A33D4 /* GPPApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169A1322976A0C0006A33D4 /* GPPApp.swift */; };
-		0169A1352976A0C0006A33D4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169A1342976A0C0006A33D4 /* ContentView.swift */; };
 		0169A1372976A0C1006A33D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0169A1362976A0C1006A33D4 /* Assets.xcassets */; };
 		0169A13A2976A0C1006A33D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0169A1392976A0C1006A33D4 /* Preview Assets.xcassets */; };
 		019472992985EA2F00F92787 /* BusStopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019472982985EA2F00F92787 /* BusStopDetailView.swift */; };
@@ -22,14 +20,14 @@
 		01FB41E2298C714E008252B2 /* RouteArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41E1298C714E008252B2 /* RouteArrivalView.swift */; };
 		01FB41E4298C976E008252B2 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41E3298C976E008252B2 /* DateUtility.swift */; };
 		01FB41E6298CA0F3008252B2 /* DataUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41E5298CA0F3008252B2 /* DataUtility.swift */; };
+		01FB41E8298D9EE2008252B2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41E7298D9EE2008252B2 /* MapView.swift */; };
+		01FB41EA298DA171008252B2 /* BusStopAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB41E9298DA171008252B2 /* BusStopAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		012031D9297709F500CE8326 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		012031DB29778E7A00CE8326 /* BusStopData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopData.swift; sourceTree = "<group>"; };
 		0169A12F2976A0C0006A33D4 /* GPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0169A1322976A0C0006A33D4 /* GPPApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPApp.swift; sourceTree = "<group>"; };
-		0169A1342976A0C0006A33D4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0169A1362976A0C1006A33D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0169A1392976A0C1006A33D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		019472982985EA2F00F92787 /* BusStopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopDetailView.swift; sourceTree = "<group>"; };
@@ -41,6 +39,8 @@
 		01FB41E1298C714E008252B2 /* RouteArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteArrivalView.swift; sourceTree = "<group>"; };
 		01FB41E3298C976E008252B2 /* DateUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		01FB41E5298CA0F3008252B2 /* DataUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtility.swift; sourceTree = "<group>"; };
+		01FB41E7298D9EE2008252B2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		01FB41E9298DA171008252B2 /* BusStopAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,10 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				0169A1322976A0C0006A33D4 /* GPPApp.swift */,
-				0169A1342976A0C0006A33D4 /* ContentView.swift */,
 				0169A1362976A0C1006A33D4 /* Assets.xcassets */,
 				0169A1382976A0C1006A33D4 /* Preview Content */,
-				012031D9297709F500CE8326 /* MapView.swift */,
 				012031DB29778E7A00CE8326 /* BusStopData.swift */,
 				01E17EDC29858AAF0009D773 /* BusStopView.swift */,
 				01E17EDE2985B5DF0009D773 /* BusStopsView.swift */,
@@ -88,6 +86,8 @@
 				01FB41E1298C714E008252B2 /* RouteArrivalView.swift */,
 				01FB41E3298C976E008252B2 /* DateUtility.swift */,
 				01FB41E5298CA0F3008252B2 /* DataUtility.swift */,
+				01FB41E7298D9EE2008252B2 /* MapView.swift */,
+				01FB41E9298DA171008252B2 /* BusStopAnnotationView.swift */,
 			);
 			path = GPP;
 			sourceTree = "<group>";
@@ -178,10 +178,10 @@
 			files = (
 				01FB41DD298AF926008252B2 /* RouteView.swift in Sources */,
 				01FB41E6298CA0F3008252B2 /* DataUtility.swift in Sources */,
-				0169A1352976A0C0006A33D4 /* ContentView.swift in Sources */,
 				01FB41E2298C714E008252B2 /* RouteArrivalView.swift in Sources */,
-				012031DA297709F500CE8326 /* MapView.swift in Sources */,
+				01FB41E8298D9EE2008252B2 /* MapView.swift in Sources */,
 				012031DC29778E7A00CE8326 /* BusStopData.swift in Sources */,
+				01FB41EA298DA171008252B2 /* BusStopAnnotationView.swift in Sources */,
 				0169A1332976A0C0006A33D4 /* GPPApp.swift in Sources */,
 				01E17EDD29858AAF0009D773 /* BusStopView.swift in Sources */,
 				0194729B2986C0FE00F92787 /* BusArrivalView.swift in Sources */,

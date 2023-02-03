@@ -19,7 +19,7 @@ struct GPPApp: App {
     var body: some Scene {
         WindowGroup {
             TabView{
-                ContentView()
+                OsijekMapView()
                     .tabItem{
                         Label("Karta", systemImage: "map")
                     }
