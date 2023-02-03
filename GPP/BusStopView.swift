@@ -19,31 +19,20 @@ struct BusStopView: View {
     
     @EnvironmentObject var busStopData: BusStopData
     
+    @EnvironmentObject var dataUtility: DataUtility
+    
     var schedules: [BusStopSchedule]{
-        return busStopData.busStopSchedules.filter{ schedule in
-            return schedule.busStopId == busStop.id
-        }
+        return dataUtility.getSchedulesWithBusStopId(
+            schedules: busStopData.busStopSchedules, id: busStop.id)
     }
     
     var routes: [Route] {
-        var routes: [Route] = []
-        for schedule in self.schedules {
-            let route = busStopData.routes.filter{  route in
-                return route.id == schedule.routeId
-            }.first
-            routes.append(route!)
-        }
-        return routes.sorted(by: { $0.destination < $1.destination})
+        return dataUtility.getRoutesWithSchedules(
+            routes: busStopData.routes, schedules: schedules)
     }
     
     var routeNumbers: [String]{
-        var numbers:[String] = []
-        for route in self.routes {
-            if !numbers.contains(route.number) {
-                numbers.append(route.number)
-            }
-        }
-        return numbers.sorted(by: { $0 < $1})
+        return dataUtility.getRouteNumbers(routes: routes)
     }
     
     var body: some View {
@@ -100,5 +89,6 @@ struct BusStopView_Previews: PreviewProvider {
             latitude: 45.53894023803806,
             longitude: 18.67270921720016)))
         .environmentObject(BusStopData())
+        .environmentObject(DataUtility())
     }
 }

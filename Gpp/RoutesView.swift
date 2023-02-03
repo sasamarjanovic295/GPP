@@ -44,7 +44,7 @@ struct RoutesView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
                         .font(.title2)
-                    TextField("Potrazi liniju", text: $query)
+                    TextField("Potrazi liniju ili odrediste", text: $query)
                         .textFieldStyle(.roundedBorder)
                 }.padding(EdgeInsets(top: 18, leading: 18, bottom: 5, trailing: 18))
                 
@@ -82,19 +82,22 @@ struct RoutesView: View {
                 }
                 else {
                     List(groupRoutesByNumber(routes: busStopData.routes),id: \.0) { (key: String, values: [Route]) in
-                        HStack{
-                            Text(key)
-                                .font(.title2)
-                                .foregroundColor(.blue)
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 38))
-                            Text(values.first?.destination ?? "")
-                                .font(.title2)
-                            Image(systemName: "arrow.right.arrow.left")
-                                .foregroundColor(.blue)
-                                .font(.body)
-                            Text(values.count > 1 ? values[1].destination : "")
-                                .font(.title2)
-                            Spacer()
+                        NavigationLink(destination: RouteView(route: values.first!)){
+                            HStack{
+                                Text(key)
+                                    .font(.title2)
+                                    .foregroundColor(.blue)
+                                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 38))
+                                Text(values.first?.destination ?? "")
+                                    .font(.title2)
+                                Image(systemName: "arrow.right.arrow.left")
+                                    .foregroundColor(.blue)
+                                    .font(.body)
+                                Text(values.count > 1 ? values[1].destination : "")
+                                    .font(.title2)
+                                Spacer()
+                            }
+                            .padding(.vertical)
                         }
                     }
                     .listStyle(.plain)

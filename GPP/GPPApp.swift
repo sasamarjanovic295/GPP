@@ -12,6 +12,10 @@ struct GPPApp: App {
     
     @StateObject var busStopData: BusStopData = BusStopData()
     
+    var dateUtility: DateUtility = DateUtility()
+    
+    var dataUtility: DataUtility = DataUtility()
+    
     var body: some Scene {
         WindowGroup {
             TabView{
@@ -32,6 +36,8 @@ struct GPPApp: App {
             .task(busStopData.fetchBusStops)
             .task(busStopData.fetchRoutes)
             .task(busStopData.fetchBusStopSchedule)
+            .environmentObject(dateUtility)
+            .environmentObject(dataUtility)
         }
     }
 }

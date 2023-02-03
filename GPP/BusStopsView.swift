@@ -47,7 +47,7 @@ struct BusStopsView: View {
                     .frame(alignment: .leading)
                 }
                 else {
-                    List($busStopData.busStops) { busStop in
+                    List($busStopData.busStops.sorted(by: { $0.wrappedValue.name < $1.wrappedValue.name})) { busStop in
                         NavigationLink(destination: BusStopDetailView(busStop: busStop)){
                             BusStopView(busStop: busStop)
                         }

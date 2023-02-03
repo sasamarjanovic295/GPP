@@ -6,3 +6,27 @@
 //
 
 import Foundation
+
+
+class DateUtility: ObservableObject{
+    
+    private let formatter: DateFormatter = DateFormatter()
+    
+    func display24HoursTime(date:Date) -> String {
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+    }
+    
+    func dateForComparing(existingDate: Date) -> Date{
+        let currentDate = Date()
+        let existingDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: existingDate)
+        let currentTimeComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: currentDate)
+        
+        var newDateComponents = existingDateComponents
+        newDateComponents.hour = currentTimeComponents.hour
+        newDateComponents.minute = currentTimeComponents.minute
+        newDateComponents.second = currentTimeComponents.second
+        let newDate = Calendar.current.date(from: newDateComponents)!
+        return newDate
+    }
+}

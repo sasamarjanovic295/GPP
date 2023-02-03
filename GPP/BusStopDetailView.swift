@@ -12,33 +12,24 @@ struct BusStopDetailView: View {
     
     @Binding var busStop:BusStop
     
+    @EnvironmentObject var dateUtility: DateUtility
+    
     @EnvironmentObject var busStopData: BusStopData
     
+    @EnvironmentObject var dataUtility: DataUtility
+    
     var schedules: [BusStopSchedule]{
-        return busStopData.busStopSchedules.filter{ schedule in
-            return schedule.busStopId == busStop.id
-        }.sorted(by: { $0.time < $1.time })
+        return dataUtility.getSchedulesWithBusStopId(
+            schedules: busStopData.busStopSchedules, id: busStop.id)
     }
     
     var routes: [Route] {
-        var routes: [Route] = []
-        for schedule in self.schedules {
-            let route = busStopData.routes.filter{  route in
-                return route.id == schedule.routeId
-            }.first
-            routes.append(route!)
-        }
-        return routes
+        return dataUtility.getRoutesWithSchedules(
+            routes: busStopData.routes, schedules: schedules)
     }
     
     var routeNumbers: [String]{
-        var numbers:[String] = []
-        for route in self.routes {
-            if !numbers.contains(route.number) {
-                numbers.append(route.number)
-            }
-        }
-        return numbers.sorted(by: { $0 < $1})
+        return dataUtility.getRouteNumbers(routes: routes)
     }
     
     var body: some View {
@@ -89,7 +80,7 @@ struct BusStopDetailView: View {
             .padding(EdgeInsets(top: 18, leading: 18, bottom: 0, trailing: 18))
             
             List(schedules) { schedule in
-                if schedule.time >= Date(){
+                if schedule.time >= dateUtility.dateForComparing(existingDate: schedule.time){
                     BusArrivalView(schedule: schedule)
                 }
             }
@@ -108,5 +99,6 @@ struct BusStopDetailView_Previews: PreviewProvider {
             latitude: 45.53174983310974,
             longitude: 18.671850304788737)))
         .environmentObject(BusStopData())
+        .environmentObject(DateUtility())
     }
 }
