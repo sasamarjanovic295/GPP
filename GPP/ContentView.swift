@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var busStop = BusStop(name: "", latitude: 0, longitude: 0)
+    @State var isPresented = false
+    
     var body: some View {
-        VStack{
-            MapView()
-        }
-        .edgesIgnoringSafeArea(.top)
-        .edgesIgnoringSafeArea(.horizontal)
+    
+        MapView(busStop: $busStop, isPresented: $isPresented)
+            .edgesIgnoringSafeArea(.top)
+            .edgesIgnoringSafeArea(.horizontal)
+            .sheet(isPresented: $isPresented, content: {
+                BusStopDetailView(busStopName: busStop.name ,busStop: Binding.constant(busStop))
+            })
     }
 }
 

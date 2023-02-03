@@ -20,20 +20,24 @@ class BusStopAnnotation: MKPointAnnotation {
     }
 }
 
-let busStopCG = BusStop(name: "Centralno groblje",latitude: 45.53174983310974, longitude: 18.671850304788737)
-let busStopS = BusStop(name: "Cesting", latitude: 45.53894023803806, longitude: 18.67270921720016)
-let busStopN = BusStop(name: "Nadvoznjak", latitude: 45.54159885719651, longitude:  18.674880320881)
-let busStopM = BusStop(name: "Mercator",latitude: 45.54480067313245, longitude: 18.677720239942886)
-
-let busAnCG = BusStopAnnotation(busStop: busStopCG)
-let busAnS = BusStopAnnotation(busStop: busStopS)
-let busAnN = BusStopAnnotation(busStop: busStopN)
-let busAnM = BusStopAnnotation(busStop: busStopM)
-
 struct MapView: UIViewRepresentable {
     
+    @EnvironmentObject var busStopData: BusStopData
+    
+    @Binding var busStop: BusStop
+    
+    @Binding var isPresented: Bool
+    
     let osijekLocation = CLLocation(latitude: 45.5550, longitude: 18.6955)
-    var annotations: [MKAnnotation] = [busAnCG, busAnS, busAnN, busAnM]
+    
+    var annotations: [MKAnnotation]{
+        var annotations: [MKAnnotation] = []
+        for busStop in busStopData.busStops {
+            let annotation = BusStopAnnotation(busStop: busStop)
+            annotations.append(annotation)
+        }
+        return annotations
+    }
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
@@ -62,6 +66,7 @@ struct MapView: UIViewRepresentable {
             if annotation is BusStopAnnotation {
                 let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ??
                     MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                
                 let image = UIImage(named: "busStop")
                 let size = CGSize(width: 44, height: 44)
                 UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
@@ -70,9 +75,18 @@ struct MapView: UIViewRepresentable {
                 UIGraphicsEndImageContext()
                 annotationView.image = resizedImage
                 
+                
+                
                 return annotationView
             }
             return nil
+        }
+        
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            if let busStopAnnotation = view.annotation as? BusStopAnnotation {
+                parent.busStop = busStopAnnotation.busStop
+                parent.isPresented = true
+            }
         }
         
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -90,7 +104,7 @@ struct MapView: UIViewRepresentable {
 
 private extension MKMapView {
     
-    func centerToLocation( _ location: CLLocation, regionRadius: CLLocationDistance = 1000) {
+    func centerToLocation( _ location: CLLocation, regionRadius: CLLocationDistance = 5000) {
         let coordinateRegion = MKCoordinateRegion(
           center: location.coordinate,
           latitudinalMeters: regionRadius,
