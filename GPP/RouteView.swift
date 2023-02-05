@@ -16,9 +16,14 @@ struct RouteView: View {
     @EnvironmentObject var busStopData: BusStopData
     
     var schedules: [BusStopSchedule]{
+        
+        let secondRoute = busStopData.routes.filter{ route in
+            return route.id != self.route.id && route.number == self.route.number
+        }.first
+        
         return busStopData.busStopSchedules.filter{ schedule in
-            return schedule.routeId == route.id
-        }.sorted(by: { $0.time < $1.time })
+            return schedule.routeId == route.id || schedule.routeId == secondRoute?.id
+        }.sorted(by: {$0.time < $1.time})
     }
     
     var body: some View {
@@ -27,11 +32,11 @@ struct RouteView: View {
             
             VStack{
                 HStack{
-                    Text("LINIJE")
+                    Text("STIGAO")
                         .font(.subheadline)
                         .foregroundColor(.black.opacity(0.7))
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 15))
-                    Text("ODREDISTE")
+                    Text("STANICA")
                         .font(.subheadline)
                         .foregroundColor(.black.opacity(0.7))
                     Spacer()

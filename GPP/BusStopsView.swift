@@ -14,13 +14,25 @@ struct BusStopsView: View {
     @State var query: String = ""
     
     @EnvironmentObject var busStopData: BusStopData
+    @EnvironmentObject var dataUtility: DataUtility
     
     var foundStops: [BusStop]{
         return busStopData.busStops.filter{ busStop in
-            return busStop.name.lowercased()
-                .contains(query.lowercased())
+            return busStop.name.lowercased().contains(query.lowercased()) ||
+                busStopHasQueriedDestination(busStop: busStop)
         }
         .sorted(by: { $0.name < $1.name})
+    }
+    
+    func busStopHasQueriedDestination(busStop: BusStop) -> Bool {
+        let busStopDests = dataUtility.getBusStopDestinations(
+            busStopId: busStop.id, schedules: busStopData.busStopSchedules, routes: busStopData.routes)
+        for busStopDest in busStopDests {
+            if busStopDest.lowercased().contains(query.lowercased()){
+                return true
+            }
+        }
+        return false
     }
     
     var body: some View {
@@ -33,7 +45,7 @@ struct BusStopsView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
                         .font(.title2)
-                    TextField("Potrazi stanicu", text: $query)
+                    TextField("Potrazi stanicu ili odrediste", text: $query)
                         .textFieldStyle(.roundedBorder)
                 }.padding(EdgeInsets(top: 18, leading: 18, bottom: 5, trailing: 18))
 
@@ -67,5 +79,6 @@ struct BusStopsView_Previews: PreviewProvider {
     static var previews: some View {
         BusStopsView()
             .environmentObject(BusStopData())
+            .environmentObject(DataUtility())
     }
 }

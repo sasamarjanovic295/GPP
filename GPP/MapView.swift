@@ -15,7 +15,7 @@ struct OsijekMapView: View {
     private let osijekLocation = CLLocation(latitude: 45.5550, longitude: 18.6955)
     
     var osijekRegion: MKCoordinateRegion{
-        return MKCoordinateRegion( center: osijekLocation.coordinate, latitudinalMeters: 7000, longitudinalMeters: 7000)
+        return MKCoordinateRegion( center: osijekLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
     }
     
     var body: some View {

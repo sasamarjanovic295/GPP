@@ -72,7 +72,7 @@ struct BusStopDetailView: View {
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
                 
                 HStack{
-                    Text("LINIJE")
+                    Text("LINIJA")
                         .font(.subheadline)
                         .foregroundColor(.black.opacity(0.7))
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))

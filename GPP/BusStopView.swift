@@ -35,6 +35,10 @@ struct BusStopView: View {
         return dataUtility.getRouteNumbers(routes: routes)
     }
     
+    var routeDestinations: [String]{
+        return dataUtility.getRouteDestinations(routes: routes)
+    }
+    
     var body: some View {
         
         VStack{
@@ -65,15 +69,26 @@ struct BusStopView: View {
                 Image(systemName: "arrow.right")
                     .foregroundColor(.blue)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8))
-                ForEach(routes.prefix(4)) { route in
-                    if route.id != routes.prefix(4).last?.id {
-                        Text(route.destination + ",")
-                            .fixedSize()
-                            .foregroundColor(.black.opacity(0.7))
+                ForEach(routeDestinations.prefix(3)) { route in
+                    if routeDestinations.count >= 3 {
+                        if route == routeDestinations.prefix(3).last {
+                            Text(route + "...")
+                                .foregroundColor(.black.opacity(0.7))
+                        }
+                        else{
+                            Text(route + ",")
+                                .foregroundColor(.black.opacity(0.7))
+                        }
                     }
                     else{
-                        Text(route.destination + "...")
-                            .foregroundColor(.black.opacity(0.7))
+                        if route != routeDestinations.prefix(3).last {
+                            Text(route + ",")
+                                .foregroundColor(.black.opacity(0.7))
+                        }
+                        else{
+                            Text(route)
+                                .foregroundColor(.black.opacity(0.7))
+                        }
                     }
                 }
                 Spacer()

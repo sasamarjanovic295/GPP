@@ -36,4 +36,20 @@ class DataUtility: ObservableObject{
         }
         return numbers.sorted(by: { $0 < $1})
     }
+    
+    func getRouteDestinations(routes: [Route]) -> [String] {
+        var dest:[String] = []
+        for route in routes {
+            if !dest.contains(route.destination) {
+                dest.append(route.destination)
+            }
+        }
+        return dest.sorted(by: { $0 < $1})
+    }
+    
+    func getBusStopDestinations(busStopId: String, schedules: [BusStopSchedule], routes: [Route]) -> [String]{
+        let schs = self.getSchedulesWithBusStopId(schedules: schedules, id: busStopId)
+        let rts = self.getRoutesWithSchedules(routes: routes, schedules: schs)
+        return self.getRouteDestinations(routes: rts)
+    }
 }
